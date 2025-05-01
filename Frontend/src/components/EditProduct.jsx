@@ -109,7 +109,7 @@ const EditProduct = () => {
         <div style={{ display: 'flex', justifyContent: 'center', gap: '16px', width: '100%' }}>
           <button type="button" onClick={() => navigate('/')} style={cancelBtnStyle}>Cancel</button>
           <button onClick={(e) => handleSubmit(e)} disabled={isSubmitting} style={{ ...submitBtnStyle, opacity: isSubmitting ? 0.7 : 1, cursor: isSubmitting ? 'not-allowed' : 'pointer' }}>
-            {isSubmitting ? 'Saving...' : 'Save Product'}
+            {isSubmitting ? 'Updating...' : 'Update Product'}
           </button>
         </div>
       </form>
