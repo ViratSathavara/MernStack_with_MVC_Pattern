@@ -2,6 +2,7 @@ import { useEffect, useState, useCallback } from "react";
 import { Link } from "react-router-dom";
 import { getProducts, deleteProduct } from "../Services/Api";
 import EditIcon from "@mui/icons-material/Edit";
+import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
 import { TrashIcon, PencilIcon } from "@heroicons/react/24/outline";
 import history from "../history";
 import { enqueueSnackbar } from "notistack";
@@ -10,18 +11,18 @@ const ProductList = () => {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
 
-    const fetchProducts = useCallback( async () => {
-      try {
-        const response = await getProducts();
-        setProducts(response.products || []);
-      } catch (err) {
-        enqueueSnackbar({ 
-          variant: 'error',
-          message: "Failed to fetch products. Please try again."
-        })
-      } finally {
-        setLoading(false);
-      }
+  const fetchProducts = useCallback(async () => {
+    try {
+      const response = await getProducts();
+      setProducts(response.products || []);
+    } catch (err) {
+      enqueueSnackbar({
+        variant: "error",
+        message: "Failed to fetch products. Please try again.",
+      });
+    } finally {
+      setLoading(false);
+    }
   }, []);
 
   useEffect(() => {
@@ -31,20 +32,20 @@ const ProductList = () => {
   const handleDelete = async (id) => {
     try {
       const productId = Number(id);
-    if (!productId || isNaN(productId)) {
-      enqueueSnackbar({ 
-        variant: 'error',
-        message: 'Invalid product ID'
-      })
-      return;
-    }
-      const res =  await deleteProduct(productId);
-      
+      if (!productId || isNaN(productId)) {
+        enqueueSnackbar({
+          variant: "error",
+          message: "Invalid product ID",
+        });
+        return;
+      }
+      const res = await deleteProduct(productId);
+
       if (res.status !== 200) {
-      enqueueSnackbar({ 
-        variant: 'success',
-        message: res.message 
-      });
+        enqueueSnackbar({
+          variant: "success",
+          message: res.message,
+        });
       }
       fetchProducts();
     } catch (error) {
@@ -168,13 +169,30 @@ const ProductList = () => {
                 <td style={{ padding: "1rem 1.5rem", whiteSpace: "nowrap" }}>
                   {product.stock}
                 </td>
-                <td style={{ padding: "1rem 1.5rem", whiteSpace: "nowrap" }}>
-                  <div style={{ display: "flex", gap: "0.5rem" }}>
-                    <EditIcon onClick={() => handleEdit(product.productId, product)}>
-                      <PencilIcon
-                        style={{ height: "1.25rem", width: "1.25rem" }}
-                      />
-                    </EditIcon>
+                <td
+                  style={{
+                    padding: "1rem 1.5rem",
+                    display: "flex",
+                    gap: "30px",
+                    whiteSpace: "nowrap",
+                  }}
+                >
+                  <div>
+                    <button
+                      onClick={() => handleEdit(product.productId, product)}
+                      style={{
+                        color: "blue",
+                        background: "none",
+                        border: "none",
+                        cursor: "pointer",
+                        transition: "color 0.2s",
+                        ":hover": {
+                          color: "#b91c1c",
+                        },
+                      }}
+                    >
+                      <EditIcon />
+                    </button>
                     <button
                       onClick={() => handleDelete(product.productId)}
                       style={{
@@ -188,9 +206,7 @@ const ProductList = () => {
                         },
                       }}
                     >
-                      <TrashIcon
-                        style={{ height: "1.25rem", width: "1.25rem" }}
-                      />
+                      <DeleteForeverIcon />
                     </button>
                   </div>
                 </td>
