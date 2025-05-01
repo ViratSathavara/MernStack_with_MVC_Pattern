@@ -1,4 +1,4 @@
 # Node.js / Backend
-Frontend/node_modules/      # Root node_modules (if any)
-/backend/node_modules/  # Backend-specific node_modules
-/backend/.env      # Ignores .env inside /backend
+Frontend/node_modules/
+/backend/node_modules/
+/backend/.env/
