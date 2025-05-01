@@ -13,7 +13,7 @@ app.use(express.json()); // For parsing application/json
 app.use(express.urlencoded({ extended: true }));
 
 app.use(cors({
-  origin: 'http://localhost:5173', // Your Vite frontend URL
+  origin: 'http://localhost:5000', // Your Vite frontend URL
   methods: ['GET', 'POST', 'PUT', 'DELETE'],
   allowedHeaders: ['Content-Type']
 }));

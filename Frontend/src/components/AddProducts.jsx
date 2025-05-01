@@ -147,7 +147,7 @@ if (res.status === 201) {
                 cursor: isSubmitting ? 'not-allowed' : 'pointer'
               }}
             >
-              {isSubmitting ? 'Saving...' : 'Save Product'}
+              {isSubmitting ? 'Creating...' : 'Create Product'}
             </button>
           </div>
         </form>
